@@ -17,14 +17,22 @@ class CategoriesTableSeeder extends Seeder
     public function run()
     {
         $faker = Factory::create();
-        foreach (range(1, 10) as $idex){
+        foreach (range(1, 20) as $idex){
             $name = $faker->name;
             Category::create([
                 'user_id' => rand(1,24),
                 'name' => $name,
                 'slug' => strtolower(str_replace(' ','-',$name)),
-                'status'=> 'active'
+                'status'=> $this->randStatus()
             ]);
         }
+    }
+    private function randStatus()
+    {
+        $status = [
+            'active'    =>'active',
+            'inactive'  =>'inactive'
+        ];
+        return array_rand($status);
     }
 }
